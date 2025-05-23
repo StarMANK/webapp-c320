@@ -1,26 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="setup-wan">
-        <h2>Setup WAN ONU</h2>
+    <div class="delete-onu">
+        <h2>Delete ONU</h2>
         <form method="POST">
             <div class="form-group">
-                <label for="frame">Port and ONU ID (e.g., 1:1):</label>
-                <input type="text" id="frame" name="frame" required>
+                <label for="param">Port:</label>
+                <input type="text" id="param" name="param" required>
             </div>
             <div class="form-group">
-                <label for="vlan">VLAN:</label>
-                <input type="text" id="vlan" name="vlan" required>
-            </div>
-            <div class="form-group">
-                <label for="username">PPPoE Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">PPPoE Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Setup WAN</button>
+                <label for="onu_id">ONU ID:</label>
+                <input type="text" id="onu_id" name="onu_id" required>
+            <button type="submit">Delete ONU</button>
         </form>
+
+        {% if result %}
+            <div class="result-container">
+                <h3>Delete Results:</h3>
+                <pre>{{ result }}</pre>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

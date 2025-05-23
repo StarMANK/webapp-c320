@@ -272,6 +272,30 @@ def check_user():
     
     return render_template('check_user.html')
 
+@app.route('/delete_onu', methods=['GET', 'POST'])
+@login_required
+def delete_onu():
+    tn = get_telnet_connection(session['user_id'])
+    if not tn:
+        flash("Connection lost. Please login again.", 'error')
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        try:
+            param = request.form.get('param')
+            onu_id = request.form.get('onu_id')
+
+            send_command(tn, 'conf t')
+            send_command(tn, f'interface gpon-olt_1/1/{param}')
+            result = send_command(tn, f'no onu {onu_id}')
+            
+            return render_template('delete_onu.html', result=result)
+        except Exception as e:
+            flash(str(e), 'error')
+            return redirect(url_for('login'))
+    
+    return render_template('delete_onu.html')
+
 @app.route('/logout')
 def logout():
     if 'user_id' in session:
