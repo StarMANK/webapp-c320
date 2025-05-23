@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="scan-onu">
+        <h2>Scan Unconfigured ONUs</h2>
+        <form method="POST">
+            <button type="submit">Scan</button>
+        </form>
+        
+        {% if output %}
+            <div class="output-container">
+                <h3>Unconfigured ONUs:</h3>
+                <pre>{{ output }}</pre>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

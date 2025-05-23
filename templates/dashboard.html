@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="dashboard">
+        <h2>Welcome to OLT Management</h2>
+        <p>Connected to: {{ session['olt_ip'] }}</p>
+        
+        <div class="menu-options">
+            <a href="{{ url_for('scan_onu') }}" class="menu-button">Scan Unconfigured ONUs</a>
+            <a href="{{ url_for('register_onu') }}" class="menu-button">Register ONU</a>
+            <a href="{{ url_for('setup_onu') }}" class="menu-button">Setup ONU</a>
+            <a href="{{ url_for('setup_wan') }}" class="menu-button">Setup WAN</a>
+            <a href="{{ url_for('monitor_power') }}" class="menu-button">Monitor Power</a>
+            <a href="{{ url_for('check_user') }}" class="menu-button">Check User</a>
+        </div>
+    </div>
+{% endblock %}

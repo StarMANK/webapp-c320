@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="setup-onu">
+        <h2>Setup ONU</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="frame">Port and ONU ID (e.g., 1:1):</label>
+                <input type="text" id="frame" name="frame" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="desc">Description:</label>
+                <input type="text" id="desc" name="desc" required>
+            </div>
+            <div class="form-group">
+                <label for="vlan">VLAN:</label>
+                <input type="text" id="vlan" name="vlan" required>
+            </div>
+            <button type="submit">Setup ONU</button>
+        </form>
+    </div>
+{% endblock %}
