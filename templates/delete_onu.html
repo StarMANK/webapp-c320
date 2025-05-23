@@ -5,13 +5,10 @@
         <h2>Delete ONU</h2>
         <form method="POST">
             <div class="form-group">
-                <label for="param">Port:</label>
+                <label for="param">Port:ONT ID EG 1:1</label>
                 <input type="text" id="param" name="param" required>
             </div>
-            <div class="form-group">
-                <label for="onu_id">ONU ID:</label>
-                <input type="text" id="onu_id" name="onu_id" required>
-            <button type="submit">Delete ONU</button>
+            <button type="submit" class="btn-delete">Delete ONU</button>
         </form>
 
         {% if result %}

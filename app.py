@@ -283,11 +283,13 @@ def delete_onu():
     if request.method == 'POST':
         try:
             param = request.form.get('param')
-            onu_id = request.form.get('onu_id')
+
+            # split the parameter to get port and ont_id
+            port, ont_id = param.split(':')
 
             send_command(tn, 'conf t')
-            send_command(tn, f'interface gpon-olt_1/1/{param}')
-            result = send_command(tn, f'no onu {onu_id}')
+            send_command(tn, f'interface gpon-olt_1/1/{port}')
+            result = send_command(tn, f'no onu {ont_id}')
             
             return render_template('delete_onu.html', result=result)
         except Exception as e:
