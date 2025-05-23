@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="check-user">
+        <h2>Check Detail User</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="param">Port and ONU ID (e.g., 1:1):</label>
+                <input type="text" id="param" name="param" required>
+            </div>
+            <button type="submit">Check Detail User</button>
+        </form>
+
+        {% if result %}
+            <div class="result-container">
+                <h3>Detail User:</h3>
+                <pre>{{ result }}</pre>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -272,6 +272,28 @@ def check_user():
     
     return render_template('check_user.html')
 
+@app.route('/check_detail_user', methods=['GET', 'POST'])
+@login_required
+def check_detail_user():
+    tn = get_telnet_connection(session['user_id'])
+    if not tn:
+        flash("Connection lost. Please login again.", 'error')
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        try:
+            param = request.form.get('param')
+
+            send_command(tn, 'conf t')
+            result = send_command(tn, f'show gpon onu detail-info gpon-onu_1/1/{param}')
+            
+            return render_template('check_detail_user.html', result=result)
+        except Exception as e:
+            flash(str(e), 'error')
+            return redirect(url_for('login'))
+    
+    return render_template('check_detail_user.html')
+
 @app.route('/delete_onu', methods=['GET', 'POST'])
 @login_required
 def delete_onu():
