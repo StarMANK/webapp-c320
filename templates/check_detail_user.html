@@ -1,21 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="check-user">
-        <h2>Check Detail User</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="param">Port and ONU ID (e.g., 1:1):</label>
-                <input type="text" id="param" name="param" required>
-            </div>
-            <button type="submit">Check Detail User</button>
-        </form>
+<div class="monitor-power" style="max-width: 600px; margin: auto; padding: 20px;">
+    <h2 style="text-align: center;">Cek Detail Informasi ONU</h2>
+    <form method="POST" style="margin-top: 20px;">
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="onu_id">Pilih ONU ID:</label>
+            <select name="onu_id" id="onu_id" class="form-control" required style="width: 100%; padding: 8px;">
+                <option value="" disabled selected>-- Pilih ONU --</option>
+                {% for onu in onu_list %}
+                <option value="{{ onu }}" {% if onu == onu_id %}selected{% endif %}>{{ onu }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">Cek Detail</button>
+    </form>
 
-        {% if result %}
-            <div class="result-container">
-                <h3>Detail User:</h3>
-                <pre>{{ result }}</pre>
-            </div>
+    {% if output %}
+    <div class="output-container" style="margin-top: 30px;">
+        {% if "tidak ditemukan" in output %}
+        <div class="alert-warning" style="color: #856404; background-color: #fff3cd; padding: 10px; border-radius: 5px;">
+            <strong>Peringatan:</strong> {{ output }}
+        </div>
+        {% else %}
+        <h4>Hasil untuk <code>{{ onu_id }}</code>:</h4>
+        <pre style="background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto;">{{ output }}</pre>
         {% endif %}
     </div>
+    {% endif %}
+</div>
 {% endblock %}

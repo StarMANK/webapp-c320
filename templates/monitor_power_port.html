@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="monitor-power">
+        <h2>Monitor Power per Port</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="port">Port (e.g., 1):</label>
+                <input type="text" id="port" name="port" required>
+            </div>
+            <button type="submit">Monitor Power Port</button>
+        </form>
+
+        {% if results %}
+            <div class="results-container">
+                <h3>Power Monitoring Results (Port {{ port }}):</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ONU</th>
+                            <th>Rx Power</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.onu }}</td>
+                            <td>{{ result.rx_power }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

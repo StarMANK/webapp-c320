@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="monitor-power-port" style="max-width:600px; margin:auto; padding:20px;">
+    <h2>Monitor Power per ONU</h2>
+
+    <form method="POST" action="{{ url_for('monitor_power_user') }}" aria-label="Form monitoring power per ONU">
+        <div class="form-group" style="margin-bottom:1em;">
+            <label for="onu_select">Pilih ONU Aktif:</label>
+            <select 
+                id="onu_select" 
+                name="onu_select" 
+                required 
+                style="width:100%; padding:0.5em; font-size:1em;"
+                aria-required="true"
+            >
+                <option value="">-- Pilih ONU --</option>
+                {% for onu in onu_list %}
+                    <option value="{{ onu }}" {% if selected_onu == onu %}selected{% endif %}>{{ onu }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" style="padding:0.5em 1em; font-size:1em;">Monitor Power</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes" style="margin-top:1em; list-style:none; padding:0;">
+                {% for category, message in messages %}
+                    <li class="{{ category }}" style="color: {% if category == 'error' %}red{% elif category == 'warning' %}orange{% else %}green{% endif %}; margin-bottom:0.5em;">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if result %}
+    <div class="results-container" style="margin-top:2em;">
+        <h3>Hasil Power Monitoring:</h3>
+        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse;">
+            <thead style="background-color:#f2f2f2;">
+                <tr>
+                    <th style="text-align:left;">ONU</th>
+                    <th style="text-align:left;">Rx Power (dBm)</th>
+                    <th style="text-align:left;">Tx Power (dBm)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ result.onu }}</td>
+                    <td>{{ result.rx_power }}</td>
+                    <td>{{ result.tx_power }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% elif selected_onu %}
+        <p style="margin-top:1em; font-style:italic;">Tidak ada data hasil monitoring untuk ONU {{ selected_onu }}.</p>
+    {% endif %}
+</div>
+{% endblock %}
