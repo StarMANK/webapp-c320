@@ -260,6 +260,7 @@ def setup_wan():
             return redirect(url_for('login'))
     
     return render_template('setup_wan.html')
+
 @app.route('/monitor_power_port', methods=['GET', 'POST'])
 @login_required
 def monitor_power_port():
