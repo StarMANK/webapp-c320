@@ -27,7 +27,7 @@
         {% if messages %}
             <ul class="flashes" style="margin-top:1em; list-style:none; padding:0;">
                 {% for category, message in messages %}
-                    <li class="{{ category }}" style="color: {% if category == 'error' %}red{% elif category == 'warning' %}orange{% else %}green{% endif %}; margin-bottom:0.5em;">
+                    <li class="{{ category }}" style=color: {% if category == 'error' %}red{% elif category == 'warning' %}orange{% else %}green{% endif %}; margin-bottom:0.5em;>
                         {{ message }}
                     </li>
                 {% endfor %}
